@@ -1,29 +1,31 @@
 'use strict';
-
+import { changeObj, createToDo } from "./sub.js";
 let Input = document.querySelector('.new-todo');
-Input.addEventListener('keyup', ()=>{
+// Enter 눌렀을때
+Input.addEventListener('keyup', async function(){
     if(event.keyCode == 13){
-        if(Input.value.length)createTodo(Input.value);
+        if(Input.value.length){
+            let reuslt = await addLocalStorage(Input.value);
+            await setToDo(reuslt);
+        };
     }
 })
-function createTodo(value){
-    const Ul = document.querySelector('.todo-list');
-    let Li = document.createElement('li');
-    let View = document.createElement('div');
-    let Input = document.createElement('input');
-    let Label = document.createElement('label');
-    let Button = document.createElement('button');
-
-    // Li.classList.add('view');
-    View.classList.add('view');
-    Input.classList.add('toggle');
-    Input.type = 'checkbox';
-    Label.textContent = value;
-    Button.classList.add('destroy');
-
-    Ul.append(Li);
-    Li.append(View);
-    View.append(Input);
-    View.append(Label);
-    View.append(Button);
+function setToDo([...todos]){
+    for(let i = 0; todos.length > 0; i++){
+        createToDo(todos[i])
+    }
+}
+async function addLocalStorage(value){
+    let todo = JSON.parse(localStorage.getItem('sdhs-todo'));
+    let Obj = changeObj(value);
+    if(todo == '' || todo == null){
+        console.log('do it')
+        localStorage.setItem('sdhs-todo', JSON.stringify([Obj]));
+    }
+    else{
+        todo.push(Obj);
+        localStorage.setItem('sdhs-todo', JSON.stringify(todo));
+        console.log(todo);
+    }
+    return todo;
 }
