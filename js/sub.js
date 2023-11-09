@@ -30,20 +30,23 @@ async function setLocalStorage(work, value) {
 async function createRandomId() {
     let todo = await getLocalStorage();
     let number, count;
-
-    do {
-        number = Math.floor(Math.random() * 99999);
-        count = 0;
-
-        for (let j = 0; j < todo.length; j++) {
-            if (number === todo[j].id) {
-                count++;
-                break; // 중복이 발견되면 루프 종료
+    if(todo == null){
+        return Math.floor(Math.random() * 99999);
+    }
+    else{   
+        do {
+            number = Math.floor(Math.random() * 99999);
+            count = 0;
+            for (let j = 0; j < todo.length; j++) {
+                if (number === todo[j].id) {
+                    count++;
+                    break; // 중복이 발견되면 루프 종료
+                }
             }
-        }
-    } while (count !== 0);
-
-    return number;
+        } while (count !== 0);
+        
+        return number;
+    }
 }
 
 export { changeObj, setLocalStorage, getLocalStorage }
