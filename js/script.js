@@ -1,63 +1,70 @@
 'use strict';
-import { changeObj } from "./sub.js";
+import { changeObj, setLocalStorage, getLocalStorage } from "./sub.js";
 let Input = document.querySelector('.new-todo');
+// 시작했을때
+async function Start() {
+    let todos = await getLocalStorage();
+    await setToDo(todos)
+    await setEvent(todos);
+}
 // Enter 눌렀을때
-Input.addEventListener('keyup', async function(){
-    if(event.keyCode == 13){
-        if(Input.value.length){
+Input.addEventListener('keyup', async function (event) {
+    if (event.keyCode == 13) {
+        if (Input.value.length) {
             let reuslt = await addLocalStorage(Input.value);
-            setToDo(reuslt);
-            setEvent(reuslt);
+            console.log('result', reuslt);
+            await setToDo(reuslt);
+            await setEvent(reuslt);
         };
     }
 })
-async function setToDo([...todos]){
-    console.log(todos);
+// 삭제 버튼을 눌렀을때
+async function setToDo([...todos]) {
+    //원래 li 삭제
+    const originLi = Array.from(document.querySelectorAll('.todos'));
+    for (let i = 0; i < originLi.length; i++) {
+        originLi[i].remove();
+    }
     const Ul = document.querySelector('.todo-list');
-    const Main = document.querySelector('.main');
-    let NewUl = document.createElement('ul');
-    NewUl.classList.add('todo-list');
-    Ul.remove();
-    Main.append(NewUl);
-    for(let i = 0; todos.length > i; i++){
-    let Li = document.createElement('li');
-    let View = document.createElement('div');
-    let Input = document.createElement('input');
-    let Label = document.createElement('label');
-    let Button = document.createElement('button');
-    Li.classList.add(todos[i].state);
-    View.classList.add('view');
-    Input.classList.add('toggle');
-    Input.checked = todos[i].state == 'completed';
-    Input.type = 'checkbox';
-    Label.textContent = todos[i].value;
-    Button.classList.add('destroy');
-    
-    NewUl.append(Li);
-    Li.append(View);
-    View.append(Input);
-    View.append(Label);
-    View.append(Button);
+    for (let i = 0; i < todos.length; i++) {
+        let Li = document.createElement('li');
+        let View = document.createElement('div');
+        let Input = document.createElement('input');
+        let Label = document.createElement('label');
+        let Button = document.createElement('button');
+
+        Li.classList.add(todos[i].state);
+        Li.classList.add('todos');
+        View.classList.add('view');
+        Input.classList.add('toggle');
+        Input.checked = todos[i].state == 'completed';
+        Input.type = 'checkbox';
+        Label.textContent = todos[i].value;
+        Button.classList.add('destroy');
+
+        Ul.append(Li);
+        Li.append(View);
+        View.append(Input);
+        View.append(Label);
+        View.append(Button);
     }
 }
-async function setEvent(){
-
+async function setEvent([...todos]) {
+    let destroyBtn = document.querySelectorAll('.destroy');
+    for (let i = 0; i < todos.length; i++) {
+        destroyBtn[i].addEventListener('click', (event) => {
+        })
+    }
 }
-async function addLocalStorage(value){
-    let todo = localStorage.getItem('sdhs-todo');
-    if(todo === null){
+async function addLocalStorage(value) {
+    let todo = await getLocalStorage();
+    if (todo === null) {
         console.log('do it')
-        let Obj = changeObj(value);
-        localStorage.setItem('sdhs-todo', JSON.stringify([Obj]));
-        todo = [Obj];
+        await setLocalStorage('first', value);
     }
-    else{
-        todo = JSON.parse(todo);
-        let Obj = changeObj(value);
-        todo.push(Obj);
-        localStorage.setItem('sdhs-todo', JSON.stringify(todo));
-        console.log(todo);
+    else {
+        await setLocalStorage('add', value);
     }
-    return todo;
+    return await getLocalStorage();
 }
-
+Start();
