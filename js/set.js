@@ -1,3 +1,5 @@
+import { setLocalStorage, getLocalStorage } from "./localstorage.js";
+import { Set } from "./handler.js";
 async function setToDo([...todos]) {
     //원래 li 삭제
     const originLi = Array.from(document.querySelectorAll('.todos'));
@@ -39,4 +41,4 @@ async function setEvent([...todos]) {
         })
     }
 }
-export { setToDo, setEvent };
+export { setToDo, setEvent,};

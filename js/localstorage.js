@@ -26,9 +26,9 @@ async function setLocalStorage(work, value) {
     else if (work == 'remove') {
         let Id = value.id;
         let local = await getLocalStorage();
-        console.log("id", Id,'local', local)
-        let indexNumber = local.findIndex((item)=>{
-            if(item.id == Id) return true;   
+        console.log("id", Id, 'local', local)
+        let indexNumber = local.findIndex((item) => {
+            if (item.id == Id) return true;
             else return false;
         })
         console.log(local[indexNumber])
@@ -39,10 +39,10 @@ async function setLocalStorage(work, value) {
 async function createRandomId() {
     let todo = await getLocalStorage();
     let number, count;
-    if(todo == null){
+    if (todo == null) {
         return Math.floor(Math.random() * 99999);
     }
-    else{   
+    else {
         do {
             number = Math.floor(Math.random() * 99999);
             count = 0;
@@ -53,7 +53,7 @@ async function createRandomId() {
                 }
             }
         } while (count !== 0);
-        
+
         return number;
     }
 }
