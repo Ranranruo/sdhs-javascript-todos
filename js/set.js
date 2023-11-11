@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./localstorage.js";
+import { setLocalStorage } from "./localstorage.js";
 import { Set } from "./handler.js";
 async function setToDo([...todos]) {
     //원래 li 삭제

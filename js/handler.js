@@ -1,10 +1,12 @@
+import { getLocalStorage, setLocalStorage } from "./localstorage.js";
+import { setToDo, setEvent } from "./set.js";
 async function Set() {
     console.log('start!');
     let todos = await getLocalStorage();
     await setToDo(todos)
     await setEvent(todos);
 }
-async function pressInput(event){
+async function pressInput(event, Input){
     if (event.keyCode == 13) {
         if (Input.value.length) {
             let todo = await getLocalStorage();
