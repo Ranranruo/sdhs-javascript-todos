@@ -24,7 +24,16 @@ async function setLocalStorage(work, value) {
         localStorage.setItem('sdhs-todo', JSON.stringify(local));
     }
     else if (work == 'remove') {
-
+        let Id = value.id;
+        let local = await getLocalStorage();
+        console.log("id", Id,'local', local)
+        let indexNumber = local.findIndex((item)=>{
+            if(item.id == Id) return true;   
+            else return false;
+        })
+        console.log(local[indexNumber])
+        local.splice(indexNumber, 1);
+        localStorage.setItem('sdhs-todo', JSON.stringify(local));
     }
 }
 async function createRandomId() {
