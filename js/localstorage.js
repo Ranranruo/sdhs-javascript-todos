@@ -32,10 +32,18 @@ async function setLocalStorage(work, value) {
             if (item.id == Id) return true;
             else return false;
         })
-        console.log(local[indexNumber])
         local.splice(indexNumber, 1);
         localStorage.setItem('sdhs-todo', JSON.stringify(local));
     }
+}
+async function editLocalStorage(object, variable, value){
+    let local = await getLocalStorage();
+    let indexNumber = local.findIndex((item) => {
+        if (item.id == object.id) return true;
+        else return false;
+    })
+    local[indexNumber][variable] = value;
+    localStorage.setItem('sdhs-todo', JSON.stringify(local));
 }
 async function createRandomId() {
     let todo = await getLocalStorage();
@@ -58,5 +66,12 @@ async function createRandomId() {
         return number;
     }
 }
-
-export { changeObj, setLocalStorage, getLocalStorage }
+async function findObjectById(Id){
+    let local = await getLocalStorage();
+    let indexNumber = local.findIndex((item) => {
+        if (item.id == Id) return true;
+        else return false;
+    })
+    return local[indexNumber];
+}
+export { changeObj, setLocalStorage, getLocalStorage, editLocalStorage, findObjectById}

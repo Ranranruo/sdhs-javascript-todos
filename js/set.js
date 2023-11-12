@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./localstorage.js";
+import { setLocalStorage, editLocalStorage, findObjectById } from "./localstorage.js";
 import { Set } from "./handler.js";
 async function setToDo([...todos]) {
     //원래 li 삭제
@@ -33,12 +33,28 @@ async function setToDo([...todos]) {
 }
 async function setEvent([...todos]) {
     let destroyBtn = document.querySelectorAll('.destroy');
+    let checkInput = document.querySelectorAll('.toggle');
     for (let i = 0; i < todos.length; i++) {
         destroyBtn[i].addEventListener('click', async (event) => {
             let destroyLi = destroyBtn[i].parentElement.parentElement;
             await setLocalStorage('remove', destroyLi);
             Set();
         })
+        checkInput[i].addEventListener('click', async (event)=>{
+            let checkInputLi = checkInput[i].parentElement.parentElement;
+            let object = await findObjectById(checkInputLi.id);
+            if(object.state == 'completed')
+            {
+                await editLocalStorage(checkInputLi, 'state', 'default');
+            }
+            else{
+                await editLocalStorage(checkInputLi, 'state', 'completed');
+            }
+            Set();
+        })
     }
+
+    // let 
+
 }
 export { setToDo, setEvent,};
