@@ -45,6 +45,10 @@ async function editLocalStorage(object, variable, value){
     local[indexNumber][variable] = value;
     localStorage.setItem('sdhs-todo', JSON.stringify(local));
 }
+async function filteringLocalStorage(todos, variable, value){
+    let arr = todos.filter((item)=>item[variable] == value);
+    return arr;
+}
 async function createRandomId() {
     let todo = await getLocalStorage();
     let number, count;
@@ -74,4 +78,4 @@ async function findObjectById(Id){
     })
     return local[indexNumber];
 }
-export { changeObj, setLocalStorage, getLocalStorage, editLocalStorage, findObjectById}
+export { changeObj, setLocalStorage, getLocalStorage, editLocalStorage, findObjectById, filteringLocalStorage}

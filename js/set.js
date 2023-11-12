@@ -1,4 +1,4 @@
-import { setLocalStorage, editLocalStorage, findObjectById } from "./localstorage.js";
+import { setLocalStorage, editLocalStorage, findObjectById, filteringLocalStorage } from "./localstorage.js";
 import { Set } from "./handler.js";
 async function setToDo([...todos]) {
     //원래 li 삭제
@@ -40,21 +40,22 @@ async function setEvent([...todos]) {
             await setLocalStorage('remove', destroyLi);
             Set();
         })
-        checkInput[i].addEventListener('click', async (event)=>{
+        checkInput[i].addEventListener('click', async (event) => {
             let checkInputLi = checkInput[i].parentElement.parentElement;
             let object = await findObjectById(checkInputLi.id);
-            if(object.state == 'completed')
-            {
+            if (object.state == 'completed') {
                 await editLocalStorage(checkInputLi, 'state', 'default');
             }
-            else{
+            else {
                 await editLocalStorage(checkInputLi, 'state', 'completed');
             }
             Set();
         })
     }
-
-    // let 
-
 }
-export { setToDo, setEvent,};
+setFilter();
+async function setFilter(){
+    let link = location.hash.replace('₩/', '');
+    filteringLocalStorage(todos, )
+}
+export { setToDo, setEvent, };
