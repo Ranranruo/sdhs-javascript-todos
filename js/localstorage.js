@@ -3,7 +3,7 @@ async function changeObj(value) {
     let Id = await createRandomId();
     let Obj = {
         value: value,
-        state: 'default',
+        state: 'active',
         id: Id
     }
     console.log(Obj);

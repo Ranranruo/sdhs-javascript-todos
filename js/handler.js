@@ -1,10 +1,11 @@
 import { getLocalStorage, setLocalStorage } from "./localstorage.js";
-import { setToDo, setEvent } from "./set.js";
+import { setToDo, setEvent, setFilter } from "./set.js";
 async function Set() {
     console.log('start!');
     let todos = await getLocalStorage();
-    await setToDo(todos)
-    await setEvent(todos);
+    let filtertodo = await setFilter(todos);
+    let a = await setToDo(filtertodo)
+    let b = await setEvent(filtertodo);
 }
 async function pressInput(event, Input){
     if (event.keyCode == 13) {
@@ -21,5 +22,14 @@ async function pressInput(event, Input){
         };
     }
 }
+async function clickfilter(){
+    let filterButton = document.querySelectorAll('.filter');
+    for(let i = 0; i < filterButton.length; i++){
+        filterButton[i].addEventListener('click', function(){
+            console.log('filter');
+            Set();
+        })
+    }
+}
 
-export { Set, pressInput }
+export { Set, pressInput, clickfilter }

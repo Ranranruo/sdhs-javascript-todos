@@ -44,7 +44,7 @@ async function setEvent([...todos]) {
             let checkInputLi = checkInput[i].parentElement.parentElement;
             let object = await findObjectById(checkInputLi.id);
             if (object.state == 'completed') {
-                await editLocalStorage(checkInputLi, 'state', 'default');
+                await editLocalStorage(checkInputLi, 'state', 'active');
             }
             else {
                 await editLocalStorage(checkInputLi, 'state', 'completed');
@@ -53,9 +53,12 @@ async function setEvent([...todos]) {
         })
     }
 }
-setFilter();
-async function setFilter(){
-    let link = location.hash.replace('₩/', '');
-    filteringLocalStorage(todos, )
+async function setFilter([...todos]){
+    let link = location.hash.replace('#/', '');
+    let value;
+    if(link == '') return todos
+    else value = (link == 'active') ? 'active' : 'completed';
+    let filtertodo = await filteringLocalStorage(todos, 'state', value);
+    return filtertodo;
 }
-export { setToDo, setEvent, };
+export { setToDo, setEvent, setFilter};
