@@ -18,6 +18,7 @@ async function pressInput(event, Input){
             else {
                 await setLocalStorage('add', Input.value);
             }
+            Input.value='';
             Set();
         };
     }
@@ -25,9 +26,10 @@ async function pressInput(event, Input){
 async function clickfilter(){
     let filterButton = document.querySelectorAll('.filter');
     for(let i = 0; i < filterButton.length; i++){
-        filterButton[i].addEventListener('click', function(){
+        filterButton[i].addEventListener('click', async function(){
             console.log('filter');
-            Set();
+            window.location.href = filterButton[i].href
+            await Set();
         })
     }
 }
