@@ -1,8 +1,9 @@
 import { getLocalStorage, setLocalStorage } from "./localstorage.js";
-import { setToDo, setEvent, setFilter } from "./set.js";
+import { setToDo, setEvent, setFilter, setTodoCount } from "./set.js";
 async function Set() {
     console.log('start!');
     let todos = await getLocalStorage();
+    await setTodoCount(todos);
     let filtertodo = await setFilter(todos);
     let a = await setToDo(filtertodo)
     let b = await setEvent(filtertodo);
@@ -23,7 +24,7 @@ async function pressInput(event, Input){
         };
     }
 }
-async function clickfilter(){
+async function clickFilter(){
     let filterButton = document.querySelectorAll('.filter');
     for(let i = 0; i < filterButton.length; i++){
         filterButton[i].addEventListener('click', async function(){
@@ -33,5 +34,12 @@ async function clickfilter(){
         })
     }
 }
-
-export { Set, pressInput, clickfilter }
+async function clickClearBtn(){
+    let local = await getLocalStorage()
+    for(let i = 0; i < local.length; i++){
+        local[i].state = 'active';
+    }
+    localStorage.setItem('sdhs-todo', JSON.stringify(local));
+    Set();
+}
+export { Set, pressInput, clickFilter, clickClearBtn }

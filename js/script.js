@@ -1,9 +1,13 @@
 'use strict';
-import { Set, pressInput, clickfilter } from "./handler.js";
-let Input = document.querySelector('.new-todo');
+import { Set, pressInput, clickFilter, clickClearBtn } from "./handler.js";
 // 시작했을때
 Set();
 // Enter 눌렀을때
+let Input = document.querySelector('.new-todo');
 Input.addEventListener('keyup', (event)=> pressInput(event, Input));
 // filter 버튼을 눌렀을떄
-clickfilter();
+clickFilter();
+// clear-completed 버튼을 눌렀을때
+let clearBtn = document.querySelector('.clear-completed');
+clearBtn.addEventListener('click', ()=> clickClearBtn());
+

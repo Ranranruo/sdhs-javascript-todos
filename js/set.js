@@ -53,6 +53,10 @@ async function setEvent([...todos]) {
         })
     }
 }
+async function setTodoCount([...todos]){
+    let todocount = document.querySelector('.todo-count');
+    todocount.textContent = `${todos.length}items left`;
+}
 async function setFilter([...todos]){
     let link = location.hash.replace('#/', '');
     let value;
@@ -61,4 +65,4 @@ async function setFilter([...todos]){
     let filtertodo = await filteringLocalStorage(todos, 'state', value);
     return filtertodo;
 }
-export { setToDo, setEvent, setFilter};
+export { setToDo, setEvent, setFilter, setTodoCount};

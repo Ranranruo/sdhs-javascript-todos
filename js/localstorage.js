@@ -78,4 +78,8 @@ async function findObjectById(Id){
     })
     return local[indexNumber];
 }
+
+async function findIdByMember(){
+    
+}
 export { changeObj, setLocalStorage, getLocalStorage, editLocalStorage, findObjectById, filteringLocalStorage}
