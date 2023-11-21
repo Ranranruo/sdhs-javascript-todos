@@ -80,8 +80,16 @@ async function editLocalStorage(variable, value, object) {
 }
 
 
-async function filteringLocalStorage(todos, variable, value) {
-    let arr = todos.filter((item) => item[variable] == value);
+async function filteringLocalStorage(todos, variable, [...value]) {
+    // let arr = todos.filter((item) => item[variable] == value);
+    console.log('a')
+    console.log(value)
+    let arr = todos.filter((item)=>{
+        for(let i = 0;i < value.length; i++){
+            if(item[variable] == value[i]) return true;
+        }
+        return false;
+    })
     return arr;
 }
 

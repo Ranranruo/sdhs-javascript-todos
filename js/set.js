@@ -53,11 +53,13 @@ async function setEvent([...todos]) {
             Set();
         })
         todo[i].addEventListener('dblclick', (event)=>{
+            console.log(event.target)
             let editInput = document.createElement('input');
             editInput.classList.add('edit');
             editInput.type = 'text';
             event.target.parentElement.append(editInput);
-            event.target.parentElement.parentElement.classList = 'editing';
+            event.target.parentElement.parentElement.classList = 'editing todos'
+            Set();
         })
     }
 }
@@ -78,7 +80,7 @@ async function setFilter([...todos]){
     let value;
     if(link == 'all') return todos
     else value = (link == 'active') ? 'active' : 'completed';
-    let filtertodo = await filteringLocalStorage(todos, 'state', value);
+    let filtertodo = await filteringLocalStorage(todos, 'state', [value, 'editing']);
     return filtertodo;
 }
 async function setToggleBtn([...todos]){
