@@ -34,6 +34,7 @@ async function setToDo([...todos]) {
 async function setEvent([...todos]) {
     let destroyBtn = document.querySelectorAll('.destroy');
     let checkInput = document.querySelectorAll('.toggle');
+    let todo = document.querySelectorAll('.todos');
     for (let i = 0; i < todos.length; i++) {
         destroyBtn[i].addEventListener('click', async (event) => {
             let destroyLi = destroyBtn[i].parentElement.parentElement;
@@ -50,6 +51,13 @@ async function setEvent([...todos]) {
                 await editLocalStorage('state', 'completed', checkInputLi);
             }
             Set();
+        })
+        todo[i].addEventListener('dblclick', (event)=>{
+            let editInput = document.createElement('input');
+            editInput.classList.add('edit');
+            editInput.type = 'text';
+            event.target.childNodes.append(editInput);
+            console.log(event.target.childNodes);
         })
     }
 }
