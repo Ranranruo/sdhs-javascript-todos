@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-framework="es6">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vanilla ES6 • TodoMVC</title>
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/todoapp.css" />
+    <script type="module" src="./js/script.js" defer></script>
+    <script type="module" src="./js/localstorage.js"></script>  
+    <script type="module" src="./js/handler.js"></script>  
+    <script type="module" src="./js/set.js"></script>  
+  </head>
+  <body>
+    <section class="todoapp">
+      <header class="header">
+        <h1>todos</h1>
+        <input
+          class="new-todo"
+          placeholder="What needs to be done?"
+          autofocus
+        />
+      </header>
+      <section class="main">
+        <input id="toggle-all" class="toggle-all" type="checkbox" />
+        <label class="toggle-all-label" for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+          <!-- <li>
+            <div class="view">
+              <input class="toggle" type="checkbox"/>
+              <label>1</label>
+              <button class="destroy"></button>
+            </div>
+          </li>
+          <li class="completed">
+            <div class="view">
+              <input class="toggle" type="checkbox" checked />
+              <label>2</label>
+              <button class="destroy"></button>
+            </div>
+          </li>
+          <li class="editing">
+            <div class="view">
+              <input class="toggle" type="checkbox" checked />
+              <label>2</label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" type="text" />
+          </li> -->
+        </ul>
+        <footer class="footer">
+          <span class="todo-count"><strong class="todo-count">0</strong> items left</span>
+          <ul class="filters">
+            <li>
+              <a href="#/" class="filter all-filter">All</a>
+            </li>
+            <li>
+              <a href="#/active" class="filter active-filter">Active</a>
+            </li>
+            <li>
+              <a href="#/completed" class="filter completed-filter">Completed</a>
+            </li>
+          </ul>
+          <button class="clear-completed">Clear completed</button>
+        </footer>
+      </section>
+    </section>
+  </body>
+</html>
