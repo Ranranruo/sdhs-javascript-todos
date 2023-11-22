@@ -1,3 +1,4 @@
+'use strict';
 
 async function changeObj(value) {
     let Id = await createRandomId();

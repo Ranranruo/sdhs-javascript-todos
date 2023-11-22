@@ -1,3 +1,5 @@
+'use strict';
+
 import { getLocalStorage, setLocalStorage, findIdByMember, editLocalStorage } from "./localstorage.js";
 import { setToDo, setEvent, setFilter, setTodoCount, setToggleBtn, setShowUi } from "./set.js";
 async function Set() {

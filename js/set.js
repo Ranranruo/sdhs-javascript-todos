@@ -1,3 +1,4 @@
+'use strict';
 import { setLocalStorage, editLocalStorage, findObjectById, filteringLocalStorage, getLocalStorage } from "./localstorage.js";
 import { Set } from "./handler.js";
 async function setToDo([...todos]) {
