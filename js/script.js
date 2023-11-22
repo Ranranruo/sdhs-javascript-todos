@@ -1,10 +1,11 @@
 'use strict';
-import { Set, pressInput, clickFilter, clickClearBtn,  clickToggleAllBtn} from "./handler.js";
+import { Set, pressInput, clickFilter, clickClearBtn,  clickToggleAllBtn, setFirstLocalStorage} from "./handler.js";
 // 시작했을때
+setFirstLocalStorage();
 Set();
 // Enter 눌렀을때
 let Input = document.querySelector('.new-todo');
-Input.addEventListener('keyup', (event)=> pressInput(event, Input));
+Input.addEventListener('keyup', (event)=> pressInput(event, Input), console.log('do it! in script'));
 // filter 버튼을 눌렀을떄
 clickFilter();
 

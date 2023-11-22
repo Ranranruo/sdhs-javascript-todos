@@ -1,58 +1,57 @@
 'use strict';
 
-import { getLocalStorage, setLocalStorage, findIdByMember, editLocalStorage } from "./localstorage.js";
+import { getLocalStorage, addLocalStorage, removeLocalStorage, findIdByMember, editLocalStorage, createLocalStorage, emptyCheckLocalStorage } from "./localstorage.js";
 import { setToDo, setEvent, setFilter, setTodoCount, setToggleBtn, setShowUi } from "./set.js";
-async function Set() {
+ function Set() {
     console.log('start!');
-    let todos = await getLocalStorage();
-    await setShowUi(todos);
-    await setTodoCount(todos);
-    await setToggleBtn(todos);
-    let filtertodo = await setFilter(todos);
-    await setToDo(filtertodo);
-    await setEvent(filtertodo);
+    let todos = getLocalStorage();
+    console.log(todos, 'a');
+    setShowUi(todos);
+    setTodoCount(todos);
+    setToggleBtn(todos);
+    let filtertodo = setFilter(todos);
+    setToDo(filtertodo);
+    setEvent(filtertodo);
 }
-async function pressInput(event, Input) {
+function pressInput(event, Input) {
+     console.log('do it!')
     if (event.keyCode == 13) {
         let inputText = Input.value.replaceAll(' ', '');
         if (inputText.length) {
-            let todo = await getLocalStorage();
-            if (todo === null) {
-                await setLocalStorage('first', Input.value);
-            }
-            else {
-                await setLocalStorage('add', Input.value);
-            }
+            addLocalStorage(Input.value);
             Input.value = '';
             Set();
         };
     }
 }
-async function clickFilter() {
+ function clickFilter() {
     let filterButton = document.querySelectorAll('.filter');
     for (let i = 0; i < filterButton.length; i++) {
-        filterButton[i].addEventListener('click', async function () {
-            console.log('filter');
+        filterButton[i].addEventListener('click',  function () {
             window.location.href = filterButton[i].href
-            await Set();
+             Set();
         })
     }
 }
 
-async function clickClearBtn() {
-    let filter = await findIdByMember('state', 'completed');
-    await setLocalStorage('remove', filter);
+ function clickClearBtn() {
+    let filter =  findIdByMember('state', 'completed');
+     removeLocalStorage(filter);
     Set();
 }
 
-async function clickToggleAllBtn(){
+ function clickToggleAllBtn(){
     let toggleBtn = document.querySelector('#toggle-all');
     if(toggleBtn.checked){
-        await editLocalStorage('state', 'completed');
+         editLocalStorage('state', 'completed');
     }
     else{
-        await editLocalStorage('state', 'active');
+         editLocalStorage('state', 'active');
     }
     Set();
 }
-export { Set, pressInput, clickFilter, clickClearBtn, clickToggleAllBtn }
+function setFirstLocalStorage(){
+    let result = emptyCheckLocalStorage()
+    if(result) createLocalStorage();
+}
+export { Set, pressInput, clickFilter, clickClearBtn, clickToggleAllBtn, setFirstLocalStorage }
