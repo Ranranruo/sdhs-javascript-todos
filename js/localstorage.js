@@ -43,7 +43,7 @@ async function setLocalStorage(work, value) {
             localStorage.setItem('sdhs-todo', JSON.stringify(result));
         }
         else {
-            let Id = value.id;
+            let Id = value;
             let local = await getLocalStorage();
             let indexNumber = local.findIndex((item) => {
                 if (item.id == Id) return true;
@@ -71,7 +71,7 @@ async function editLocalStorage(variable, value, object) {
     else{
         let local = await getLocalStorage();
         let indexNumber = local.findIndex((item) => {
-            if (item.id == object.id) return true;
+            if (item.id == object) return true;
             else return false;
         })
         local[indexNumber][variable] = value;

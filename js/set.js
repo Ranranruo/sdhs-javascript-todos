@@ -38,28 +38,47 @@ async function setEvent([...todos]) {
     for (let i = 0; i < todos.length; i++) {
         destroyBtn[i].addEventListener('click', async (event) => {
             let destroyLi = destroyBtn[i].parentElement.parentElement;
-            await setLocalStorage('remove', destroyLi);
+            await setLocalStorage('remove', destroyLi.id);
+            console.log(destroyLi)
             Set();
         })
         checkInput[i].addEventListener('click', async (event) => {
             let checkInputLi = checkInput[i].parentElement.parentElement;
             let object = await findObjectById(checkInputLi.id);
             if (object.state == 'completed') {
-                await editLocalStorage('state', 'active', checkInputLi);
+                await editLocalStorage('state', 'active', checkInputLi.id);
             }
             else {
-                await editLocalStorage('state', 'completed', checkInputLi);
+                await editLocalStorage('state', 'completed', checkInputLi.id);
             }
             Set();
         })
-        todo[i].addEventListener('dblclick', (event)=>{
-            console.log(event.target)
-            let editInput = document.createElement('input');
-            editInput.classList.add('edit');
-            editInput.type = 'text';
-            event.target.parentElement.append(editInput);
-            event.target.parentElement.parentElement.classList = 'editing todos'
-            Set();
+        todo[i].addEventListener('dblclick', async (event)=>{
+            let todoLi = event.target.parentElement.parentElement;
+            let todoClass = todoLi.classList;
+            todoLi.classList = 'editing todos'
+            
+            let editInput = document.createElement('input')
+            editInput.type = 'text'
+            editInput.classList.add('edit')
+            editInput.addEventListener('keyup', (event)=>{
+                if(event.key == 'Enter') { editInput.blur()}})
+            editInput.addEventListener('focusout', async (event)=>{
+                let todoId = todoLi.id;
+                let Value = event.target.value;
+                todoLi.classList = todoClass;
+                if(Value.replaceAll(" ", '').length){
+                    await editLocalStorage('value', Value, todoId);
+                    Set();
+                }
+                else{
+                    await setLocalStorage('remove', todoId);
+                    Set();
+                }
+            })
+            todoLi.append(editInput);
+            editInput.focus();
+            
         })
     }
 }
